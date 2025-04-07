@@ -1,0 +1,5 @@
+Postgress has the data locally
+Kafka manages the big DB between various machines
+Debesium sends the info to Kafka about all the local changes
+
+Consumer Kafka

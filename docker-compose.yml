@@ -1,0 +1,74 @@
+version: '3.8'
+
+services:
+
+  #  app:
+  #    build: .
+  #    container_name: wpbd_project
+  #    depends_on:
+  #      - db
+  #    environment:
+  #      DATABASE_URL: postgresql://postgres:LaneyB!74@localhost:5432/wpbd
+  #    volumes:
+  #      - .:/app
+  #    ports:
+  #      - "5000:5000"
+  #    restart: always
+
+  postgres:
+    image: postgres:17.4
+    container_name: postgres_db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: LaneyB!74
+      POSTGRES_DB: wpbd
+      POSTGRES_HOST_AUTH_METHOD: trust
+      POSTGRES_WAL_LEVEL: logical
+    ports:
+      - "5432:5432"
+    command: [
+      "postgres",
+      "-c", "wal_level=logical",
+      "-c", "max_replication_slots=5",
+      "-c", "max_wal_senders=5"
+    ]
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    container_name: zookeeper
+    restart: always
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+    ports:
+      - "2181:2181"
+
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    container_name: kafka_broker
+    restart: always
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    ports:
+      - "9092:9092"
+
+  debezium:
+    image: debezium/connect:2.4
+    container_name: debezium
+    restart: always
+    depends_on:
+      - kafka
+      - postgres
+    environment:
+      BOOTSTRAP_SERVERS: kafka:9092
+      GROUP_ID: debezium_group
+      CONFIG_STORAGE_TOPIC: debezium_configs
+      OFFSET_STORAGE_TOPIC: debezium_offsets
+      STATUS_STORAGE_TOPIC: debezium_status
+    ports:
+      - "8083:8083"
