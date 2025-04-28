@@ -10,22 +10,20 @@ docker system prune -a
 
 docker exec -it postgres_db psql -U postgres -p 5432 -d wpbd
 
-curl -X POST http://localhost:8083/connectors \
-     -H "Content-Type: application/json" \
-     -d '{
-          "name": "postgres-connector",
-          "config": {
-            "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
-            "database.hostname": "postgres",
-            "database.port": "5432",
-            "database.user": "postgres",
-            "database.password": "LaneyB!74",
-            "database.dbname": "wpbd",
-            "topic.prefix": "wpbd_changes",
-            "plugin.name": "pgoutput",
-            "slot.name": "debezium_slot",
-            "publication.autocreate.mode": "all_tables",
-            "database.history.kafka.bootstrap.servers": "kafka:9092",
-            "database.history.kafka.topic": "schema-changes.wpbd"
-          }
-        }'
+anton@R-PC:/mnt/c/PJATK/Mag/1st/WPBD/proj/WPBD_proj$ curl -X POST http://172.29.176.78:8083/connectors -H "Content-Type: application/json" -d '{
+  "name": "postgres-connector",
+  "config": {
+    "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+    "tasks.max": "1",
+    "database.hostname": "postgres",
+    "database.port": "5432",
+    "database.user": "postgres",
+    "database.password": "LaneyB!74",
+    "database.dbname": "wpbd",
+    "database.server.name": "dbserver1",
+    "topic.prefix": "dbserver1",
+    "plugin.name": "pgoutput",
+    "slot.name": "debezium",
+    "publication.name": "debezium_publication"
+  }
+}'
