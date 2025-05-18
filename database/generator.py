@@ -55,4 +55,4 @@ def generate_data(num_users=10, num_posts=20, num_comments=50):
 
 if __name__ == "__main__":
     generate_data()
-    print("Dodano przykładowe dane do bazy!")
+    print("Data added to database!")

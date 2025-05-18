@@ -10,17 +10,18 @@ docker system prune -a
 
 docker exec -it postgres_db psql -U postgres -p 5432 -d wpbd
 
-anton@R-PC:/mnt/c/PJATK/Mag/1st/WPBD/proj/WPBD_proj$ curl -X POST http://172.29.176.78:8083/connectors -H "Content-Type: application/json" -d '{
+curl -X POST http://172.29.176.78:8083/connectors -H "Content-Type: application/json" -d '{
   "name": "postgres-connector",
   "config": {
     "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
     "tasks.max": "1",
-    "database.hostname": "postgres",
+    "database.hostname": "172.29.176.78",
     "database.port": "5432",
     "database.user": "postgres",
     "database.password": "LaneyB!74",
     "database.dbname": "wpbd",
     "database.server.name": "dbserver1",
+    "schema.include.list": "public",
     "topic.prefix": "dbserver1",
     "plugin.name": "pgoutput",
     "slot.name": "debezium",

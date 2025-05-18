@@ -11,7 +11,7 @@ conf = {
 def main():
     consumer = Consumer(conf)
     # Subscribe to topic(s)
-    consumer.subscribe(['Posts'])
+    consumer.subscribe(['Posts', 'dbserver1.public.posts', 'dbserver1.public.users', 'dbserver1.public.comments'])
 
     print("Consuming messages from 'Posts'...")
 
