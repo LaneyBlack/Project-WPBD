@@ -1,0 +1,3 @@
+docker-compose run --rm python python kafka/consumer.py
+docker-compose run --rm python python kafka/producer.py
+docker-compose run --rm python python database/generator.py
