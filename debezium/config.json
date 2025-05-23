@@ -3,7 +3,7 @@
   "config": {
     "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
     "tasks.max": "1",
-    "database.hostname": "172.29.176.78",
+    "database.hostname": "postgres",
     "database.port": "5432",
     "database.user": "postgres",
     "database.password": "LaneyB!74",
@@ -13,6 +13,11 @@
     "topic.prefix": "dbserver1",
     "plugin.name": "pgoutput",
     "slot.name": "debezium",
-    "publication.name": "debezium_publication"
+    "publication.name": "debezium_publication",
+
+    "key.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "key.converter.schemas.enable": "false",
+    "value.converter.schemas.enable": "false"
   }
 }

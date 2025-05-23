@@ -24,7 +24,7 @@ services:
       POSTGRES_HOST_AUTH_METHOD: trust
       POSTGRES_WAL_LEVEL: logical
     ports:
-      - "5432:5432"
+      - "6432:5432"
     command: [
       "postgres",
       "-c", "wal_level=logical",
@@ -50,7 +50,7 @@ services:
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://172.29.176.78:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
       KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
     ports:
@@ -80,13 +80,7 @@ services:
     volumes:
       - ./debezium:/config
     entrypoint: >
-      sh -c "
-        echo 'Waiting for Debezium...';
-        sleep 10;
-        curl -X POST http://debezium:8083/connectors \
-          -H 'Content-Type: application/json' \
-          -d @/config/config.json;
-      "
+      sh -c "echo 'Waiting for Debezium...'; sleep 20; curl -X POST http://debezium:8083/connectors -H 'Content-Type: application/json' -d @/config/config.json"
 
   kafka-ui:
     image: provectuslabs/kafka-ui:latest

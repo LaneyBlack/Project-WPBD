@@ -9,7 +9,7 @@ from sqlalchemy.orm import sessionmaker, relationship
 locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
 
 # DB settings
-DATABASE_URL = "postgresql://postgres:LaneyB!74@172.29.176.78:5432/wpbd"
+DATABASE_URL = "postgresql://postgres:LaneyB!74@localhost:6432/wpbd"
 # DATABASE_URL = "postgresql://user:password@localhost:5432/wpbd"
 
 
