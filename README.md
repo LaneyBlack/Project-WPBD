@@ -8,3 +8,5 @@
 6. [X] Spark reading topics from Kafka
 7. [X] MiniO setup
 8. [X] MiniO Spark connection
+9. [ ] Refactor the code and packages
+10. [ ] Make a good .env
