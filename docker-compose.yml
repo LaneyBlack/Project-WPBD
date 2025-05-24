@@ -139,16 +139,5 @@ services:
     command: server /data --console-address ":9001"
     restart: always
 
-#  minio-stream-runner:
-#    build:
-#      context: .
-#      dockerfile: Dockerfile
-#    container_name: minio_stream_runner
-#    depends_on:
-#      - spark
-#      - minio
-#    command: [ "python", "spark/minio_stream.py" ]
-#    restart: on-failure
-
 volumes:
   minio_data:

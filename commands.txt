@@ -5,3 +5,7 @@ docker-compose run --rm python python database/generator.py
 docker exec -e HOME=/tmp -it spark spark-submit /app/spark/stream.py
 
 http://localhost:18080/
+
+
+mc alias set local http://localhost:9000 admin admin123
+mc mb local/delta

@@ -4,7 +4,7 @@ from faker import Faker
 from models import SessionLocal, User, Post, Comment
 
 
-def generate_data(num_users=10, num_posts=20, num_comments=50):
+def generate_data(num_users=100, num_posts=200, num_comments=500):
     session = SessionLocal()
     fake = Faker()
     data_format = "%Y-%m-%d %H:%M:%S"
