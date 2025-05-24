@@ -4,7 +4,7 @@
 2. [X] Kafka setup
 3. [X] Debezium setup
 4. [X] Debezium configurator setup
-5. [ ] Spark setup
-6. [ ] Spark reading topics from Kafka
-7. [ ] MiniO setup
-8. [ ] MiniO Spark connection
+5. [X] Spark setup
+6. [X] Spark reading topics from Kafka
+7. [X] MiniO setup
+8. [X] MiniO Spark connection
