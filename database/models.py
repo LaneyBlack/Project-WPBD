@@ -1,5 +1,7 @@
 import locale
+import os
 
+from dotenv import load_dotenv
 from sqlalchemy import (
     create_engine, Column, Integer, String, Boolean, DateTime, ForeignKey, Text
 )
@@ -7,10 +9,11 @@ from sqlalchemy.orm import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
 
 locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
+load_dotenv()
 
 # DB settings
-DATABASE_URL = "postgresql://postgres:LaneyB!74@localhost:6432/wpbd"
-# DATABASE_URL = "postgresql://user:password@localhost:5432/wpbd"
+DATABASE_URL = f"postgresql://{os.getenv('POSTGRES_USER')}:{os.getenv('POSTGRES_PASSWORD')}" \
+               f"@{os.getenv('POSTGRES_HOST')}:{os.getenv('POSTGRES_PORT')}/{os.getenv('POSTGRES_DB')}"
 
 
 # Creating an engine and session
