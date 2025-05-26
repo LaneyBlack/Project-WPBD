@@ -1,7 +1,7 @@
 from confluent_kafka import Producer
 
 conf = {
-    'bootstrap.servers': '172.29.176.78:9092'  # Use the Kafka host that's reachable from your machine
+    'bootstrap.servers': 'localhost:29092'  # Use the Kafka host that's reachable from your machine
 }
 
 

@@ -24,7 +24,7 @@ services:
       POSTGRES_HOST_AUTH_METHOD: trust
       POSTGRES_WAL_LEVEL: logical
     ports:
-      - "6432:5432"
+      - "${POSTGRES_PORT}:5432"
     command: [
       "postgres",
       "-c", "wal_level=logical",
@@ -47,14 +47,17 @@ services:
     restart: always
     depends_on:
       - zookeeper
+    ports:
+      - "29092:29092"    # for external clients
+      - "9092:9092"      # for internal Docker services
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
-      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT_INTERNAL:PLAINTEXT,PLAINTEXT:PLAINTEXT
+      KAFKA_LISTENERS: PLAINTEXT_INTERNAL://0.0.0.0:9092,PLAINTEXT://0.0.0.0:29092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT_INTERNAL://kafka:9092,PLAINTEXT://localhost:29092
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT_INTERNAL
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-    ports:
-      - "9092:9092"
 
   debezium:
     image: debezium/connect:2.4
