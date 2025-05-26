@@ -1,8 +1,13 @@
+import os
+
 from confluent_kafka import Consumer
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Configure consumer
 conf = {
-    'bootstrap.servers': 'localhost:29092',
+    'bootstrap.servers': f'{os.getenv("KAFKA_HOST")}:{os.getenv("KAFKA_PORT")}',
     'group.id': 'python-group',
     'auto.offset.reset': 'earliest'  # or 'latest'
 }

@@ -1,7 +1,12 @@
+import os
+
 from confluent_kafka import Producer
+from dotenv import load_dotenv
+
+load_dotenv()
 
 conf = {
-    'bootstrap.servers': 'localhost:29092'  # Use the Kafka host that's reachable from your machine
+    'bootstrap.servers': f'{os.getenv("KAFKA_HOST")}:{os.getenv("KAFKA_PORT")}'
 }
 
 

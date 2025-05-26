@@ -1,6 +1,11 @@
+import os
+
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, from_json
 from pyspark.sql.types import StringType, StructType, StructField, IntegerType
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Initialize Spark with Delta support and S3 configs
 spark = SparkSession.builder \
@@ -8,9 +13,9 @@ spark = SparkSession.builder \
     .config("spark.jars.packages", "io.delta:delta-core_2.12:2.3.0") \
     .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension") \
     .config("spark.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog") \
-    .config("spark.hadoop.fs.s3a.access.key", "admin") \
-    .config("spark.hadoop.fs.s3a.secret.key", "admin123") \
-    .config("spark.hadoop.fs.s3a.endpoint", "http://minio:9000") \
+    .config("spark.hadoop.fs.s3a.access.key", os.getenv("MINIO_USER")) \
+    .config("spark.hadoop.fs.s3a.secret.key", os.getenv("MINIO_PASSWORD")) \
+    .config("spark.hadoop.fs.s3a.endpoint", f"http://minio:{os.getenv('MINIO_USER')}") \
     .config("spark.hadoop.fs.s3a.path.style.access", "true") \
     .config("spark.hadoop.fs.s3a.impl", "org.apache.hadoop.fs.s3a.S3AFileSystem") \
     .getOrCreate()

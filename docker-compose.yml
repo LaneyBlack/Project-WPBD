@@ -48,14 +48,14 @@ services:
     depends_on:
       - zookeeper
     ports:
-      - "29092:29092"    # for external clients
-      - "9092:9092"      # for internal Docker services
+      - "${KAFKA_PORT}:${KAFKA_PORT}"    # external clients (host)
+      - "9092:9092"                      # internal Docker services
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT_INTERNAL:PLAINTEXT,PLAINTEXT:PLAINTEXT
-      KAFKA_LISTENERS: PLAINTEXT_INTERNAL://0.0.0.0:9092,PLAINTEXT://0.0.0.0:29092
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT_INTERNAL://kafka:9092,PLAINTEXT://localhost:29092
+      KAFKA_LISTENERS: PLAINTEXT_INTERNAL://0.0.0.0:9092,PLAINTEXT://0.0.0.0:${KAFKA_PORT}
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT_INTERNAL://kafka:9092,PLAINTEXT://localhost:${KAFKA_PORT}
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT_INTERNAL
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
 
@@ -132,7 +132,7 @@ services:
     image: minio/minio
     container_name: minio
     ports:
-      - "9000:9000"  # API
+      - "${MINIO_PORT}:${MINIO_PORT}"  # API
       - "9005:9001"  # Console UI
     environment:
       MINIO_ROOT_USER: admin
