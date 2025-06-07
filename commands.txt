@@ -9,3 +9,9 @@ http://localhost:18080/
 
 mc alias set local http://localhost:9000 admin admin123
 mc mb local/delta
+
+
+make up                  # Start all containers
+make logs-kafka          # Tail logs for kafka
+make restart             # Restart entire stack
+make clean               # Remove everything (containers + volumes)

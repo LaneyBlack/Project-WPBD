@@ -1,0 +1,51 @@
+# Makefile for managing the data pipeline stack
+
+# Environment variables
+COMPOSE = docker-compose
+DC_FILE = -f docker-compose.yml
+
+# Default target
+.PHONY: help
+help:
+	@echo "Usage: make [target]"
+	@echo ""
+	@echo "Targets:"
+	@echo "  build          Build all services"
+	@echo "  up             Start all services in detached mode"
+	@echo "  down           Stop and remove all containers"
+	@echo "  restart        Restart all services"
+	@echo "  logs           Show logs for all services"
+	@echo "  logs-[svc]     Show logs for a specific service, e.g., logs-python"
+	@echo "  ps             Show status of services"
+	@echo "  clean          Stop and remove all containers, volumes, and networks"
+
+.PHONY: build
+build:
+	$(COMPOSE) $(DC_FILE) build
+
+.PHONY: up
+up:
+	$(COMPOSE) $(DC_FILE) up -d
+
+.PHONY: down
+down:
+	$(COMPOSE) $(DC_FILE) down
+
+.PHONY: restart
+restart: down up
+
+.PHONY: logs
+logs:
+	$(COMPOSE) $(DC_FILE) logs -f --tail=100
+
+# Logs per service
+logs-%:
+	$(COMPOSE) $(DC_FILE) logs -f --tail=100 $*
+
+.PHONY: ps
+ps:
+	$(COMPOSE) $(DC_FILE) ps
+
+.PHONY: clean
+clean:
+	$(COMPOSE) $(DC_FILE) down -v --remove-orphans
