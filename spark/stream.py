@@ -1,7 +1,7 @@
 import os
 
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import col, from_json
+from pyspark.sql.functions import col, from_json, length, window, avg
 from pyspark.sql.types import StringType, StructType, StructField, IntegerType
 from dotenv import load_dotenv
 
@@ -41,11 +41,37 @@ json_df = df.selectExpr("CAST(value AS STRING) as json_str") \
     .select(from_json(col("json_str"), json_schema).alias("data")) \
     .select("data.*")
 
+# Watermark helps handle late data (you can tweak time window as needed)
+top_posts_df = json_df.withWatermark("created_at", "10 minutes") \
+    .groupBy(window(col("created_at"), "5 minutes"),
+    col("post_id")).count() \
+    .withColumnRenamed("count", "comment_count")
+
+# Average Comment length
+avg_length_df = json_df.withWatermark("created_at", "10 minutes") \
+                 .withColumn("length", length("content")) \
+                 .groupBy(window(col("created_at"), "5 minutes"),col("post_id")) \
+                 .agg(avg("length").alias("avg_comment_length"))
+
 # Write to MinIO in Delta format
 query = json_df.writeStream \
     .format("delta") \
     .outputMode("append") \
     .option("checkpointLocation", "s3a://delta/checkpoints/comments") \
     .start("s3a://delta/comments")
+
+# Write top posts
+top_posts_query = top_posts_df.writeStream \
+    .outputMode("append") \
+    .format("delta") \
+    .option("checkpointLocation", "s3a://delta/checkpoints/top_active_posts") \
+    .start("s3a://delta/top_active_posts")
+
+# Write average length
+avg_length_query = avg_length_df.writeStream \
+    .outputMode("append") \
+    .format("delta") \
+    .option("checkpointLocation", "s3a://delta/checkpoints/avg_comment_length") \
+    .start("s3a://delta/avg_comment_length")
 
 query.awaitTermination()
