@@ -1,10 +1,10 @@
-FROM python:3.10-slim
+FROM bitnami/spark:3.3.0
 
-WORKDIR /app
+USER root
 
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Install pip and dependencies
+RUN install_packages python3-pip
+COPY ./spark/requirements.txt /tmp/requirements.txt
+RUN pip3 install -r /tmp/requirements.txt
 
-COPY . .
-
-CMD ["python"]
+USER 1001

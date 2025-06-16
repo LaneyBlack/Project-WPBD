@@ -113,6 +113,9 @@ services:
 
   spark-job:
     image: bitnami/spark:3.3.0
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: spark-job
     volumes:
       - ./spark:/app/spark
@@ -127,6 +130,10 @@ services:
       "--packages", "org.apache.spark:spark-sql-kafka-0-10_2.12:3.3.0,org.apache.spark:spark-token-provider-kafka-0-10_2.12:3.3.0,io.delta:delta-core_2.12:2.3.0",
       "/app/spark/stream.py"
     ]
+    environment:
+      - MINIO_USER=admin
+      - MINIO_PASSWORD=admin123
+      - MINIO_PORT=9000
 
   minio:
     image: minio/minio
