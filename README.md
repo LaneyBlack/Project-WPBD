@@ -1,6 +1,6 @@
 # 🚀 Multi-Server Data Infrastructure Template
 
-Welcome! This repository showcases a production-ready, modular ecosystem for modern data pipeline development. Powered by leading open-source technologies (PostgreSQL, Kafka, Debezium, Spark, MinIO), this stack enables scalable data ingestion, streaming, transformation, and datalake storage—**all effortlessly orchestrated with Docker.**
+Welcome! This repository showcases a production-ready, modular ecosystem for modern data pipeline development. Powered by leading open-source technologies (PostgreSQL, Kafka, Debezium, Spark, MinIO), this stack enables scalable data ingestion, streaming, transformation, and datalake storage — **all effortlessly orchestrated with Docker.**
 
 ---
 
