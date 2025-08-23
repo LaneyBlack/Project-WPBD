@@ -91,5 +91,7 @@ docker-compose down
 - [Spark](https://spark.apache.org)
 - [MinIO](https://min.io)
 
+``* .env commited and pushed for showcase purposes``
+
 [//]: # ([![Review Assignment Due Date]&#40;https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg&#41;]&#40;https://classroom.github.com/a/DSQR5M_a&#41;)
 
