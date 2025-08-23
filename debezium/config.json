@@ -6,7 +6,7 @@
     "database.hostname": "postgres",
     "database.port": "5432",
     "database.user": "postgres",
-    "database.password": "LaneyB!74",
+    "database.password": "admin123",
     "database.dbname": "wpbd",
     "database.server.name": "dbserver1",
     "schema.include.list": "public",
