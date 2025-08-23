@@ -19,7 +19,7 @@ services:
     restart: always
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: LaneyB!74
+      POSTGRES_PASSWORD: admin123
       POSTGRES_DB: wpbd
       POSTGRES_HOST_AUTH_METHOD: trust
       POSTGRES_WAL_LEVEL: logical
