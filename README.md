@@ -24,7 +24,7 @@ All components are containerized and orchestrated with Docker Compose, enabling 
 - **Datalake Ready:** Store, archive, and serve data for machine learning and analytics.
 - **CDC-Driven Pipelines:** Automatic, near real-time database-to-lake flow.
 - **Unified .env Configuration:** Manage secrets and endpoints centrally.
-- **Easy Deployment:** No more “works on my machine”—just one command fires up everything!
+- **Easy Deployment:** No more “works on my machine” — just one command fires up everything!
 
 ---
 
