@@ -11,4 +11,5 @@
 9. [X] Refactor the code and packages
 10. [X] Make a good .env
 
-<img width="3540" height="864" alt="image" src="https://github.com/user-attachments/assets/6e7cae9a-7239-4b8a-a74d-b3e7ec73f16d" />
+<img width="3540" height="864" alt="image" src="https://github.com/user-attachments/assets/bf69ddd1-5653-414b-88cf-864ee692d98a" />
+
