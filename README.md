@@ -32,7 +32,7 @@ All components are containerized and orchestrated with Docker Compose, enabling 
 
 ### 1. Clone the Repository
 ``
-git clone https://github.com/YOUR_USERNAME/YOUR_REPO.git
+git clone https://github.com/LaneyBlack/Project-WPBD.git
 cd YOUR_REPO
 ``
 
