@@ -33,7 +33,10 @@ All components are containerized and orchestrated with Docker Compose, enabling 
 ### 1. Clone the Repository
 ``
 git clone https://github.com/LaneyBlack/Project-WPBD.git
-cd YOUR_REPO
+``
+
+``
+cd project_folder
 ``
 
 ### 2. Configure Environment Variables
